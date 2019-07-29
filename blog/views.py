@@ -6,7 +6,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def show_file(request):
-    theFile = open("blog/theData.txt","r")
+    theFile = open("theData.txt","r")
     text = theFile.read()
     theFile.close()
     text ="<html><head><title>SeeFile</title></head><body>"+text+"</body></html>"
