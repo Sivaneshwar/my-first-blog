@@ -3,10 +3,13 @@ from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 from django.http import HttpResponse
+import os
 # Create your views here.
 
 def show_file(request):
-    theFile = open("theData.txt","r")
+    module_dir = os.path.dirname(__file__)  # get current directory
+    file_path = os.path.join(module_dir, 'theData.txt')
+    theFile = open(file_path,"r")
     text = theFile.read()
     theFile.close()
     text ="<html><head><title>SeeFile</title></head><body>"+text+"</body></html>"
