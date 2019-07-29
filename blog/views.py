@@ -4,12 +4,12 @@ from .models import Post
 from .forms import PostForm
 from django.http import HttpResponse
 import os
-from django.conf.settings import BASE_DIR
+
 # Create your views here.
 
 def show_file(request):
-    #module_dir = os.path.dirname(__file__)  # get current directory
-    file_path = os.path.join(BASE_DIR, 'theData.txt')
+    module_dir = os.path.dirname(__file__)
+    file_path = os.path.join(module_dir,"theData.txt")
     theFile = open(file_path,"r")
     text = theFile.read()
     theFile.close()
