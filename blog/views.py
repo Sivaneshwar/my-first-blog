@@ -14,7 +14,7 @@ def show_file(request):
     text = theFile.read()
     theFile.close()
     text = {'data':text}
-    return HttpResponse(json.dumps(text))
+    return HttpResponse(json.dumps(text),content_type="application/json")
 
 def post_list(request):
 	posts = Post.objects.filter(published_date__lte = timezone.now()).order_by('published_date')
