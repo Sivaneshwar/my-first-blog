@@ -2,7 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Post
 from .forms import PostForm
+from django.http import HttpResponse
 # Create your views here.
+
+def show_file(request):
+    theFile = open("blog/theData.txt","r")
+    text = theFile.read()
+    theFile.close()
+    text ="<html><head><title>SeeFile</title></head><body>"+text+"</body></html>"
+    return HttpResponse(text)
+
 def post_list(request):
 	posts = Post.objects.filter(published_date__lte = timezone.now()).order_by('published_date')
 	return render(request, 'blog/post_list.html', {'posts':posts})
