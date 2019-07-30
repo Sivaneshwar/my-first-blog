@@ -23,8 +23,8 @@ def show_file(request):
     theFile = open(file_path,"r")
     text = theFile.read()
     theFile.close()
-    #html = "<html><body><pre>"+text+"</pre></body</html>"
-    return HttpResponse(text, content_type="text/plain")
+    html = "<html><body>"+text+"</body</html>"
+    return HttpResponse(html, content_type="text/html")
     
 
 def post_list(request):
