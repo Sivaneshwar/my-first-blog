@@ -7,7 +7,7 @@ import os
 import json
 # Create your views here.
 
-def show_file(request):
+def show_json(request):
     module_dir = os.path.dirname(__file__)
     file_path = os.path.join(module_dir,"theData.txt")
     theFile = open(file_path,"r")
@@ -15,6 +15,17 @@ def show_file(request):
     theFile.close()
     text = {'data':text}
     return HttpResponse(json.dumps(text),content_type="application/json")
+    
+
+def show_file(request):
+    module_dir = os.path.dirname(__file__)
+    file_path = os.path.join(module_dir,"theData.txt")
+    theFile = open(file_path,"r")
+    text = theFile.read()
+    theFile.close()
+    #html = "<html><body><pre>"+text+"</pre></body</html>"
+    return HttpResponse(text, content_type="text/plain")
+    
 
 def post_list(request):
 	posts = Post.objects.filter(published_date__lte = timezone.now()).order_by('published_date')
