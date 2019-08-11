@@ -5,19 +5,16 @@ from .forms import PostForm
 from django.http import HttpResponse
 import os
 import json
-import PyPDF2
 # Create your views here.
 
 def show_json(request):
     module_dir = os.path.dirname(__file__)
-    pdfName = os.path.join(module_dir,"transcripts/Biological Neuron.pdf")
-    read_pdf = PyPDF2.PdfFileReader(pdfName)
-    page = read_pdf.getPage(0)
-    page_content = page.extractText()
-    text = page_content.split("\n")  
-    paras = {'data':text}
-    return HttpResponse(json.dumps(paras),content_type="application/json")
-    
+    file_path = os.path.join(module_dir,"theData.txt")
+    theFile = open(file_path,"r")
+    text = theFile.read()
+    theFile.close()
+    text = {'data':text}
+    return HttpResponse(json.dumps(text),content_type="application/json")
 
 def show_file(request):
     module_dir = os.path.dirname(__file__)
