@@ -25,8 +25,8 @@ def show_json(request):
         theFile.close()
         text = {'data':text}
     elif request.method=='POST':
-        dct = {1:"Hi", 2:"Hello",3:"Bye",4:"Tata"}
-        text = {'data':dct[request.POST.get("chapterNumber", "Empty")]}
+        dct = {0:"No key",1:"Hi", 2:"Hello",3:"Bye",4:"Tata"}
+        text = {'data':dct.get(request.POST.get("chapterNumber", "No key"),"Space")}
 
     return HttpResponse(json.dumps(text),content_type="application/json")
 
