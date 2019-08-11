@@ -23,8 +23,7 @@ def show_json(request):
         # theFile = open(file_path,"r")
         # text = theFile.read()
         # theFile.close()
-        # text = {'data':text}
-    
+        # text = {'data':text}    
     dct = {0:"No key",1:"Hi", 2:"Hello",3:"Bye",4:"Tata"}
 
     return HttpResponse(json.dumps(dct),content_type="application/json")
