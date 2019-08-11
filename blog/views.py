@@ -25,7 +25,7 @@ def show_json(request):
     # theFile.close()
     # text = {'data':text}
     dct = {1:"Hi", 2:"Hello",3:"Bye",4:"Tata"}
-    text = {'data':dct[request['chapterNumber']]}
+    text = {'data':dct[request.POST['chapterNumber']]}
     return HttpResponse(json.dumps(text),content_type="application/json")
 
 def show_file(request):
