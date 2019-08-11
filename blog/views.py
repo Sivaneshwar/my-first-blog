@@ -26,7 +26,7 @@ def show_json(request):
     dct = json.loads(js)
     text = dct.get(k,"Invalid Chapter Number")
     theFile.close()
-    return HttpResponse({'data':text},content_type="application/json")
+    return HttpResponse(json.dumps({'data':text}),content_type="application/json")
 
 def show_file(request):
     module_dir = os.path.dirname(__file__)
