@@ -17,18 +17,17 @@ def playAudioFile(request):
     return response
 
 def show_json(request):    
-    if request.method=='GET':
-        module_dir = os.path.dirname(__file__)
-        file_path = os.path.join(module_dir,"theData.txt")
-        theFile = open(file_path,"r")
-        text = theFile.read()
-        theFile.close()
-        text = {'data':text}
-    elif request.method=='POST':
-        dct = {0:"No key",1:"Hi", 2:"Hello",3:"Bye",4:"Tata"}
-        text = {'data':dct.get(request.POST.get("chapterNumber", "No key"),"Space")}
+    
+        # module_dir = os.path.dirname(__file__)
+        # file_path = os.path.join(module_dir,"theData.txt")
+        # theFile = open(file_path,"r")
+        # text = theFile.read()
+        # theFile.close()
+        # text = {'data':text}
+    
+    dct = {0:"No key",1:"Hi", 2:"Hello",3:"Bye",4:"Tata"}
 
-    return HttpResponse(json.dumps(text),content_type="application/json")
+    return HttpResponse(json.dumps(dct),content_type="application/json")
 
 def show_file(request):
     module_dir = os.path.dirname(__file__)
