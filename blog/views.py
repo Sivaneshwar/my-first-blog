@@ -6,6 +6,15 @@ from django.http import HttpResponse
 import os
 import json
 # Create your views here.
+def playAudioFile(request):
+    module_dir = os.path.dirname(__file__)
+    fname = os.path.join(module_dir,"myaudio.mp3")
+    f = open(fname,"rb") 
+    response = HttpResponse()
+    response.write(f.read())
+    response['Content-Type'] ='audio/mp3'
+    response['Content-Length'] =os.path.getsize(fname )
+    return response
 
 def show_json(request):
     module_dir = os.path.dirname(__file__)
