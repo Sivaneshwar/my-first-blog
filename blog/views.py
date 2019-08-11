@@ -7,6 +7,7 @@ import os
 import json
 # Create your views here.
 def playAudioFile(request):
+
     module_dir = os.path.dirname(__file__)
     fname = os.path.join(module_dir,"myaudio.mp3")
     f = open(fname,"rb") 
@@ -16,14 +17,16 @@ def playAudioFile(request):
     response['Content-Length'] =os.path.getsize(fname )
     return response
 
-def show_json(request):    
-    
+def show_json(request):
+    k = request.GET.get('chapterNumber','0')    
     module_dir = os.path.dirname(__file__)
     file_path = os.path.join(module_dir,"theData.txt")
     theFile = open(file_path,"r")
     js = theFile.read().strip()
+    dct = json.loads(js)
+    text = dct.get(k,"Invalid Chapter Number")
     theFile.close()
-    return HttpResponse(js,content_type="application/json")
+    return HttpResponse({'data':text},content_type="application/json")
 
 def show_file(request):
     module_dir = os.path.dirname(__file__)
