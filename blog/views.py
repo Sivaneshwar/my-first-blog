@@ -6,6 +6,39 @@ from django.http import HttpResponse
 import os
 import json
 # Create your views here.
+def playStatistics(request):
+
+    module_dir = os.path.dirname(__file__)
+    fname = os.path.join(module_dir,"statistics.mp3")
+    f = open(fname,"rb") 
+    response = HttpResponse()
+    response.write(f.read())
+    response['Content-Type'] ='audio/mp3'
+    response['Content-Length'] =os.path.getsize(fname )
+    return response
+
+def playSentiment(request):
+
+    module_dir = os.path.dirname(__file__)
+    fname = os.path.join(module_dir,"sentiment.mp3")
+    f = open(fname,"rb") 
+    response = HttpResponse()
+    response.write(f.read())
+    response['Content-Type'] ='audio/mp3'
+    response['Content-Length'] =os.path.getsize(fname )
+    return response
+
+def playBigdata(request):
+
+    module_dir = os.path.dirname(__file__)
+    fname = os.path.join(module_dir,"bigdata.mp3")
+    f = open(fname,"rb") 
+    response = HttpResponse()
+    response.write(f.read())
+    response['Content-Type'] ='audio/mp3'
+    response['Content-Length'] =os.path.getsize(fname )
+    return response
+
 def playAudioFile(request):
 
     module_dir = os.path.dirname(__file__)
