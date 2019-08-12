@@ -42,7 +42,7 @@ def playBigdata(request):
 def playAudioFile(request):
 
     module_dir = os.path.dirname(__file__)
-    fname = os.path.join(module_dir,"myaudio.mp3")
+    fname = os.path.join(module_dir,"meetings.mp3")
     f = open(fname,"rb") 
     response = HttpResponse()
     response.write(f.read())
