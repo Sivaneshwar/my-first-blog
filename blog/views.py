@@ -5,7 +5,56 @@ from .forms import PostForm
 from django.http import HttpResponse
 import os
 import json
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+nltk.download('punkt')
+stopword = stopwords.words("english")
+
 # Create your views here.
+def mamax(l):
+    k=None
+    mama=-1
+    for i in l:
+        if i[-1]>mama:
+            mama = i[-1]
+            k = i[0]
+    return k
+
+def score(fq,swt):
+    fq = fq.lower()
+    fwt = nltk.word_tokenize(fq)
+    fwt = [word for word in fwt if word not in stopword]
+    fwt = set(filter(lambda x:x.isalnum(), fwt))
+    return len(swt.intersection(fwt))
+    
+def searchfaq(request):    
+    sq = request.GET.get('search','0')
+    # if sq=='0':
+        # return HttpResponse(json.dumps({'data':"Sorry! Couldn't find the question!"}),content_type="application/json")
+    sq = sq.replace("%20"," ")
+    sq = sq.lower()    
+    swt = nltk.word_tokenize(sq)
+    swt = [word for word in swt if word not in stopword]
+    swt = set(filter(lambda x:x.isalnum(), swt))
+
+    module_dir = os.path.dirname(__file__)
+    file_path = os.path.join(module_dir,"faq.txt")
+    theFile = open(file_path,"r")
+    js = theFile.read().strip()
+    theFile.close()
+
+    dct = json.loads(js)
+    qscore = [(k,score(k,swt)) for k in dct]
+    repP= "Closest question found is "
+    repQ=mamax(qscore)
+
+    if repQ==None:
+        return HttpResponse(json.dumps({'data':"Sorry! Couldn't find the question!"}),content_type="application/json")
+    repR="."+dct[repQ]
+    answer = repP+repQ+repR    
+    
+    return HttpResponse(json.dumps({'data':answer}),content_type="application/json")
 def playStatistics(request):
 
     module_dir = os.path.dirname(__file__)
