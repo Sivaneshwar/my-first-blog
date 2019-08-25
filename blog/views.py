@@ -19,6 +19,8 @@ def mamax(l):
         if i[-1]>mama:
             mama = i[-1]
             k = i[0]
+    if mama==-1:
+        return None
     return k
 
 def score(fq,swt):
