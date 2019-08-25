@@ -14,14 +14,14 @@ stopword = stopwords.words("english")
 # Create your views here.
 def mamax(l):
     k=None
-    mama=-1
+    mama=0
     for i in l:
         if i[-1]>mama:
             mama = i[-1]
             k = i[0]
-    if mama==-1:
+    if mama==0:
         return None
-    return k
+    return k    
 
 def score(fq,swt):
     fq = fq.lower()
@@ -32,8 +32,8 @@ def score(fq,swt):
     
 def searchfaq(request):    
     sq = request.GET.get('search','0')
-    # if sq=='0':
-        # return HttpResponse(json.dumps({'data':"Sorry! Couldn't find the question!"}),content_type="application/json")
+    if sq=='0':
+        return HttpResponse(json.dumps({'data':"Sorry! Couldn't find the question!"}),content_type="application/json")
     sq = sq.replace("%20"," ")
     sq = sq.lower()    
     swt = nltk.word_tokenize(sq)
@@ -53,7 +53,7 @@ def searchfaq(request):
 
     if repQ==None:
         return HttpResponse(json.dumps({'data':"Sorry! Couldn't find the question!"}),content_type="application/json")
-    repR="."+dct[repQ]
+    repR=". "+dct[repQ]
     answer = repP+repQ+repR    
     
     return HttpResponse(json.dumps({'data':answer}),content_type="application/json")
